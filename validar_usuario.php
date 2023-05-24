@@ -10,7 +10,7 @@ if(isset($_GET["usuario"])){
     $dni=$_GET['usuario'];
     $password=$_GET['contrasena'];
 
-    $sentencia=$conexion->prepare("SELECT * FROM usuarios WHERE dni=?");
+    $sentencia=$conexion->prepare("SELECT * FROM usuario WHERE dni=?");
     $sentencia->bind_param('s',$dni,);
     $sentencia->execute();
     $resultado = $sentencia->get_result();
