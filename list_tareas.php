@@ -6,7 +6,7 @@ if(isset($_GET["id_curso"])){
 
         $id_curso = $_GET['id_curso'];
         
-		$consulta="SELECT * FROM tarea WHERE curso_id ='{$id_curso}'";
+		$consulta="SELECT * FROM tarea WHERE curso_id ='{$id_curso}' ORDER BY id DESC";
 		
 		$resultado=mysqli_query($conexion,$consulta);
 		
