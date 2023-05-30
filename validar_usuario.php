@@ -9,9 +9,10 @@ if(isset($_GET["usuario"])){
 
     $dni=$_GET['usuario'];
     $password=$_GET['contrasena'];
+    $rol=$_GET['tipo_usuario'];
 
-    $sentencia=$conexion->prepare("SELECT * FROM usuario WHERE dni=?");
-    $sentencia->bind_param('s',$dni);
+    $sentencia=$conexion->prepare("SELECT * FROM usuario WHERE dni=? and rol = ?");
+    $sentencia->bind_param('si',$dni,$rol);
     $sentencia->execute();
     $resultado = $sentencia->get_result();
     $fila = $resultado->fetch_assoc();
