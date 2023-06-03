@@ -1,6 +1,6 @@
 <?php
 $hostname='localhost';
-$database='educonnect';
+$database='educonnect2';
 $username='root';
 $password='';
 
