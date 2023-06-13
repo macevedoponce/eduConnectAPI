@@ -9,16 +9,19 @@ if(isset($_GET["id_curso"])){
 		if(isset($_GET["id_usuario"])){
 			$id_usuario = $_GET['id_usuario'];
 			//$consulta="SELECT * FROM tarea t INNER JOIN entrega_tarea et WHERE et.id_tarea = t.id AND t.curso_id ='{$id_curso}' AND t.estado_id = 1 AND et.id_usuario = '{$id_usuario}' ORDER BY t.id DESC;";
-			$consulta="SELECT * 
-			FROM tarea t 
+
+			$consulta=" SELECT t.id AS tarea_id, t.titulo, t.descripcion, t.fecha_limite, t.estado_id, t.curso_id,
+				et.id AS entrega_id, et.retroalimentacion, et.url_trabajo, et.nota
+			FROM tarea t
 			LEFT JOIN entrega_tarea et ON et.id_tarea = t.id AND et.id_usuario = '{$id_usuario}'
-			WHERE t.curso_id ='{$id_curso}' AND t.estado_id = 1 
+			WHERE t.curso_id = '{$id_curso}' AND t.estado_id = 1
 			ORDER BY t.id DESC;
 			";
+
 			$resultado=mysqli_query($conexion,$consulta);
 		
 			while($registro=mysqli_fetch_array($resultado)){
-				$result["id"]=(int)$registro['id'];
+				$result["id"]=(int)$registro['tarea_id'];
 				$result["titulo"]=$registro['titulo'];
 				$result["descripcion"]=$registro['descripcion'];
 				$result["fecha_limite"]=$registro['fecha_limite'];

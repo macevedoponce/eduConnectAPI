@@ -2,7 +2,7 @@
 
 // Archivo de conexión a la base de datos
 require_once 'conexion.php';
-
+$url = "http://192.168.1.46/educonnectAPI/tarea/";
 $json=array();
 if(isset($_GET["id_tarea"])){
     // Obtener el id_tarea de la solicitud
@@ -22,7 +22,7 @@ if(isset($_GET["id_tarea"])){
             // Extraer solo los campos necesarios de entrega_tarea y usuario
             $entrega["id"] = (int)$fila["id"];
             $entrega["retroalimentacion"] = $fila["retroalimentacion"];
-            $entrega["url_trabajo"] = $fila["url_trabajo"];
+            $entrega["url_trabajo"] = $url.$fila["url_trabajo"];
             $entrega["nota"] = (float)$fila["nota"];
             $entrega["id_tarea"] = (int)$fila["id_tarea"];
             $entrega["id_usuario"] = (int)$fila["id_usuario"];
