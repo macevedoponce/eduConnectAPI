@@ -2,7 +2,7 @@
 
 // Archivo de conexión a la base de datos
 require_once 'conexion.php';
-$url = "http://192.168.1.46/educonnectAPI/tarea/";
+$url = "http://192.168.1.35/educonnectAPI/tarea/";
 $json=array();
 if(isset($_GET["id_tarea"])){
     // Obtener el id_tarea de la solicitud
