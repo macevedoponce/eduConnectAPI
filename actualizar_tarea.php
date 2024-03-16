@@ -9,7 +9,7 @@ $idTarea = $_POST['id_tarea'];
 if (isset($_POST['estado_id'])) {
     $estadoId = $_POST['estado_id'];
     // Actualizar solo el campo estado_id
-    $sql = "UPDATE tarea SET estado_id = ? WHERE id = ?";
+    $sql = "UPDATE Tareas SET tarea_estado = ? WHERE tarea_id = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("ii", $estadoId, $idTarea);
 } else {
@@ -20,7 +20,7 @@ if (isset($_POST['estado_id'])) {
     $fechaLimite = $_POST['fecha_limite'];
 
     // Actualizar los demás campos sin incluir estado_id
-    $sql = "UPDATE tarea SET titulo = ?, descripcion = ?, fecha_limite = ? WHERE id = ?";
+    $sql = "UPDATE Tareas SET tarea_nombre = ?, tarea_descripcion = ?, tarea_fecha_limite = ? WHERE tarea_id = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("sssi", $titulo, $descripcion, $fechaLimite, $idTarea);
 }

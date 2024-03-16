@@ -6,23 +6,21 @@ if(isset($_GET["id_usuario"])){
 
         $id_usuario = $_GET['id_usuario'];
         
-		$consulta="SELECT c.id,
-        c.curso_codigo AS cursoCodigo,
-        c.nombre AS cursoNombre, 
-        g.nombre AS grado, 
-        s.nombre AS seccion,
-        c.url_imagen
+		$consulta="SELECT c.curso_id,
+        c.curso_nombre AS cursoNombre, 
+        g.grado_nombre AS grado, 
+        s.seccion_nombre AS seccion,
+        c.curso_foto AS url_imagen
         
-        FROM curso c
-        JOIN grado g ON c.grado_id = g.id
-        JOIN seccion s ON c.seccion_id = s.id
-        WHERE c.usuario_encargado ='{$id_usuario}'";
+        FROM Cursos c
+        JOIN Grados g ON c.id_grado = g.grado_id
+        JOIN Secciones s ON c.id_seccion = s.seccion_id
+        WHERE c.id_user = '{$id_usuario}'";
 		
 		$resultado=mysqli_query($conexion,$consulta);
 		
 		while($registro=mysqli_fetch_array($resultado)){
-			$result["id"]=$registro['id'];
-			$result["cursoCodigo"]=$registro['cursoCodigo'];
+			$result["id"]=$registro['curso_id'];
 			$result["cursoNombre"]=$registro['cursoNombre'];
 			$result["grado"]=$registro['grado'];
 			$result["seccion"]=$registro['seccion'];

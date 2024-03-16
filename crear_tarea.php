@@ -11,7 +11,7 @@ $estadoId = $_POST['estado_id'];
 $cursoId = $_POST['curso_id'];
 
 // Preparar la consulta SQL
-$sql = "INSERT INTO tarea (titulo, descripcion, fecha_limite, estado_id, curso_id) VALUES (?, ?, ?, ?, ?)";
+$sql = "INSERT INTO Tareas (tarea_nombre, tarea_descripcion, tarea_fecha_limite, tarea_estado, id_curso) VALUES (?, ?, ?, ?, ?)";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("sssii", $titulo, $descripcion, $fechaLimite, $estadoId, $cursoId);
 

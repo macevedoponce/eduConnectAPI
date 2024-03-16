@@ -15,11 +15,11 @@ if(isset($_GET["curso_id"])){
     //FROM curso_alumno JOIN usuario ON curso_alumno.usuario_id = usuario.id LEFT JOIN asistencia ON curso_alumno.usuario_id = asistencia.usuario_id 
     //AND asistencia.fecha = '$fecha_actual' WHERE curso_alumno.curso_id = $curso_id AND usuario.rol = 2";
 
-    $consulta ="SELECT u.id, u.nombres, u.apellidos, u.dni, a.fecha, a.estado
-    FROM curso_alumno ua
-    JOIN usuario u ON ua.usuario_id = u.id
-    LEFT JOIN asistencia a ON ua.usuario_id = a.usuario_id AND ua.curso_id = a.curso_id AND a.fecha = '$fecha_actual'
-    WHERE ua.curso_id = $curso_id AND u.rol = 2";
+    $consulta ="SELECT u.user_id, u.user_nombres, u.user_apellidos, u.user_dni, ra.ra_fecha, ra.ra_estado
+    FROM Curso_Alumnos ca
+    JOIN Users u ON ca.id_user = u.user_id
+    LEFT JOIN Registro_Asistencias ra ON ca.id_user = ra.id_usuario AND ca.id_curso = ra.id_curso AND ra.ra_fecha = $fecha_actual
+    WHERE ca.id_curso = $curso_id AND u.id_rol = 2";
 
     
             
@@ -29,12 +29,12 @@ if(isset($_GET["curso_id"])){
     if($resultado){
         while ($fila = mysqli_fetch_assoc($resultado)) {
             // Extraer solo los campos necesarios de entrega_tarea y usuario
-            $entrega["id"] = (int)$fila["id"];
-            $entrega["dni"] = $fila["dni"];
-            $entrega["nombres"] = $fila["nombres"];
-            $entrega["apellidos"] = $fila["apellidos"];
-            $entrega["fecha"] = $fila["fecha"];
-            $entrega["estado"] = $fila["estado"];
+            $entrega["id"] = (int)$fila["user_id"];
+            $entrega["dni"] = $fila["user_dni"];
+            $entrega["nombres"] = $fila["user_nombres"];
+            $entrega["apellidos"] = $fila["user_apellidos"];
+            $entrega["fecha"] = $fila["ra_fecha"];
+            $entrega["estado"] = $fila["ra_estado"];
             $json['estudiantes'][] = $entrega;
         }
     }else{

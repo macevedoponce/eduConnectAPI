@@ -11,12 +11,12 @@ if(isset($_GET["usuario"])){
     $password=$_GET['contrasena'];
     $rol=$_GET['tipo_usuario'];
 
-    $sentencia=$conexion->prepare("SELECT * FROM usuario WHERE dni=? and rol = ?");
+    $sentencia=$conexion->prepare("SELECT * FROM Users WHERE user_dni=? and id_rol = ?");
     $sentencia->bind_param('si',$dni,$rol);
     $sentencia->execute();
     $resultado = $sentencia->get_result();
     $fila = $resultado->fetch_assoc();
-    if($fila && password_verify($password,$fila['password'])){
+    if($fila && password_verify($password,$fila['user_password'])){
        //echo json_encode($fila,JSON_UNESCAPED_UNICODE);
        $json['usuario'][]=$fila;
       }
@@ -25,7 +25,14 @@ if(isset($_GET["usuario"])){
 
     $sentencia->close();
     $conexion->close();
-} 
+} else{
+
+    $resulta["id"]=0;
+    $resulta["usuario"]='No se encontro el usuario';
+    $json['usuario'][]=$resulta;
+    header('Content-Type: application/json');
+    echo json_encode($json);
+}
 
 
 ?>

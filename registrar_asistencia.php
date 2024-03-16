@@ -2,9 +2,10 @@
 
 // Establecer conexión con la base de datos
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = "macevedoponce";
+$password = "toor";
 $dbname = "educonnect";
+
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -20,12 +21,12 @@ $fecha = $_POST['fecha'];
 $estado = $_POST['estado'];
 
 // Verificar si ya existe un registro con los mismos valores de curso_id, usuario_id y fecha
-$sql = "SELECT * FROM asistencia WHERE curso_id = '$curso_id' AND usuario_id = '$usuario_id' AND fecha = '$fecha'";
+$sql = "SELECT * FROM Registro_Asistencias WHERE id_curso = '$curso_id' AND id_usuario = '$usuario_id' AND ra_fecha = '$fecha'";
 $result = $conn->query($sql);
 
 if ($result->num_rows > 0) {
     // Actualizar el registro existente
-    $sql = "UPDATE asistencia SET estado = '$estado' WHERE curso_id = '$curso_id' AND usuario_id = '$usuario_id' AND fecha = '$fecha'";
+    $sql = "UPDATE Registro_Asistencias SET ra_estado = '$estado' WHERE id_curso = '$curso_id' AND id_usuario = '$usuario_id' AND ra_fecha = '$fecha'";
     if ($conn->query($sql) === TRUE) {
         echo "Registro actualizado exitosamente";
     } else {
@@ -33,7 +34,7 @@ if ($result->num_rows > 0) {
     }
 } else {
     // Agregar un nuevo registro
-    $sql = "INSERT INTO asistencia (usuario_id, curso_id, fecha, estado) VALUES ('$usuario_id', '$curso_id', '$fecha', '$estado')";
+    $sql = "INSERT INTO Registro_Asistencias (id_usuario, id_curso, ra_fecha, ra_estado) VALUES ('$usuario_id', '$curso_id', '$fecha', '$estado')";
     if ($conn->query($sql) === TRUE) {
         echo "Registro agregado exitosamente";
     } else {

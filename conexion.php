@@ -1,7 +1,7 @@
 <?php
 $hostname='localhost';
 $database='educonnect';
-$username='macevedo';
+$username='macevedoponce';
 $password='toor';
 
 $conexion=new mysqli($hostname,$username,$password,$database);

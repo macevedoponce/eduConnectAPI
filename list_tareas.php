@@ -10,24 +10,24 @@ if(isset($_GET["id_curso"])){
 			$id_usuario = $_GET['id_usuario'];
 			//$consulta="SELECT * FROM tarea t INNER JOIN entrega_tarea et WHERE et.id_tarea = t.id AND t.curso_id ='{$id_curso}' AND t.estado_id = 1 AND et.id_usuario = '{$id_usuario}' ORDER BY t.id DESC;";
 
-			$consulta=" SELECT t.id AS tarea_id, t.titulo, t.descripcion, t.fecha_limite, t.estado_id, t.curso_id,
-				et.id AS entrega_id, et.retroalimentacion, et.url_trabajo, et.nota
-			FROM tarea t
-			LEFT JOIN entrega_tarea et ON et.id_tarea = t.id AND et.id_usuario = '{$id_usuario}'
-			WHERE t.curso_id = '{$id_curso}' AND t.estado_id = 1
-			ORDER BY t.id DESC;
-			";
+			$consulta=" 
+			SELECT t.tarea_id AS tarea_id, t.tarea_nombre, t.tarea_descripcion, t.tarea_fecha_limite, t.tarea_estado, t.id_curso,
+				et.et_id AS entrega_id, et.et_retroalimentacion, et.et_url_trabajo, et.et_nota
+			FROM Tareas t
+			LEFT JOIN Entrega_Tareas et ON et.id_tarea = t.tarea_id AND et.id_usuario = '{$id_usuario}'
+			WHERE t.id_curso = '{$id_curso}'  AND t.tarea_estado = 1
+			ORDER BY t.tarea_id DESC;";
 
 			$resultado=mysqli_query($conexion,$consulta);
 		
 			while($registro=mysqli_fetch_array($resultado)){
 				$result["id"]=(int)$registro['tarea_id'];
-				$result["titulo"]=$registro['titulo'];
-				$result["descripcion"]=$registro['descripcion'];
-				$result["fecha_limite"]=$registro['fecha_limite'];
-				$result["retroalimentacion"]=$registro['retroalimentacion'];
-				$result["url_trabajo"]=$registro['url_trabajo'];
-				$result["nota"]=(int)$registro['nota'];
+				$result["titulo"]=$registro['tarea_nombre'];
+				$result["descripcion"]=$registro['tarea_descripcion'];
+				$result["fecha_limite"]=$registro['tarea_fecha_limite'];
+				$result["retroalimentacion"]=$registro['et_retroalimentacion'];
+				$result["url_trabajo"]=$registro['et_url_trabajo'];
+				$result["nota"]=(int)$registro['et_nota'];
 				$json['tareas'][]=$result;
 				//echo $registro['id'].' - '.$registro['nombre'].'<br/>';
 			}
@@ -36,16 +36,16 @@ if(isset($_GET["id_curso"])){
 			echo json_encode($json);
 
 		}else{
-			$consulta="SELECT * FROM tarea WHERE curso_id ='{$id_curso}' ORDER BY id DESC";
+			$consulta="SELECT * FROM Tareas WHERE id_curso ='{$id_curso}' ORDER BY tarea_id DESC";
 			$resultado=mysqli_query($conexion,$consulta);
 		
 		while($registro=mysqli_fetch_array($resultado)){
-			$result["id"]=(int)$registro['id'];
-			$result["titulo"]=$registro['titulo'];
-			$result["descripcion"]=$registro['descripcion'];
-			$result["fecha_limite"]=$registro['fecha_limite'];
-			$result["estado"]=(int)$registro['estado_id'];
-			$result["curso_id"]=(int)$registro['curso_id'];
+			$result["id"]=(int)$registro['tarea_id'];
+			$result["titulo"]=$registro['tarea_nombre'];
+			$result["descripcion"]=$registro['tarea_descripcion'];
+			$result["fecha_limite"]=$registro['tarea_fecha_limite'];
+			$result["estado"]=(int)$registro['tarea_estado'];
+			$result["curso_id"]=(int)$registro['id_curso'];
 			$json['tareas'][]=$result;
 			//echo $registro['id'].' - '.$registro['nombre'].'<br/>';
 		}

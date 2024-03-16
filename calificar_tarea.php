@@ -11,7 +11,7 @@ if (isset($_POST['id_entrega'])) {
     $idEntrega = $_POST['id_entrega'];
 
     // Actualizar los demás campos sin incluir estado_id
-    $sql = "UPDATE entrega_tarea SET retroalimentacion = ?, nota = ? WHERE id = ?";
+    $sql = "UPDATE Entrega_Tareas SET et_retroalimentacion = ?, et_nota = ? WHERE et_id = ?";
     $stmt = $conexion->prepare($sql);
     $stmt->bind_param("sii", $retroalimentacion, $nota, $idEntrega);
 }
